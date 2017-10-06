@@ -36,3 +36,40 @@ class Solution {
         return res;
     }
 }
+
+
+//返回自定义class(max, startindex, end index)
+
+    class result {
+	int value;
+	int start;
+	int end;
+	public result(int val, int s, int e) {
+		value = val;
+		start = s;
+		end = e;
+	}
+}
+
+public result helper(int[] nums) {
+	if (nums == null || nums.length == 0) {
+		return null;
+	}
+	result res = new result(Integer.MIN_VALUE, 0, 0)
+	int sum = 0;//prefix sum;
+    int min = 0;//minimal prefix sum;
+    int minIndex = -1;//the index of minimal prefixsum;
+	for (int i = 0; i < nums.length; i++) {
+		sum += nums[i];
+		if (sum - min > res.value) {
+            res.value = sum - min;
+			res.end = i;
+            res.start = minIndex + 1;
+		}
+		if (sum < min) {
+			minIndex = i;
+			min = sum;
+		}
+	}
+	return res;
+}
